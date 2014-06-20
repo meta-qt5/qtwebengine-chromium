@@ -119,6 +119,9 @@ def main(args):
     command.extend([outputH, outputCpp])
     command.extend(styleSheets)
 
+    if os.environ["CC"].startswith("@echo"):
+        os.environ["CC"] = os.environ["CC"].replace("@echo compiling  &&", "")
+
     # Do it. check_call is new in 2.5, so simulate its behavior with call and
     # assert.
     returnCode = subprocess.call(command)
