@@ -21,4 +21,10 @@ struct WindowFeatures {
     bool status_bar_visible = true;
     bool tool_bar_visible = true;
     bool scrollbars_visible = true;
+
+    // NOTE: WebWindowFeatures::additionalFeatures is not mirrored by this
+    // mojom struct as it's never used by the browser and therefore doesn't need
+    // to be sent.
+	// ... but webOS/LuneOS apps need that to send additional info to the OS
+    array<string> additionalFeatures;
 };

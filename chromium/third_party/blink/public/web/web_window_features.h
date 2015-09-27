@@ -31,6 +31,8 @@
 #ifndef THIRD_PARTY_BLINK_PUBLIC_WEB_WEB_WINDOW_FEATURES_H_
 #define THIRD_PARTY_BLINK_PUBLIC_WEB_WEB_WINDOW_FEATURES_H_
 
+#include <vector>
+
 namespace blink {
 
 struct WebWindowFeatures {
@@ -60,6 +62,8 @@ struct WebWindowFeatures {
   bool noreferrer = false;
   bool background = false;
   bool persistent = false;
+  
+  std::vector<std::string> additionalFeatures;
 };
 
 }  // namespace blink

@@ -144,7 +144,26 @@ class CONTENT_EXPORT WebContentsDelegate {
                               WindowOpenDisposition disposition,
                               const gfx::Rect& initial_rect,
                               bool user_gesture,
-                              bool* was_blocked) {}
+                              bool* was_blocked) {
+      std::vector<base::string16> additional_features;
+      AddNewContents(source,std::move(new_contents),disposition,initial_rect,user_gesture,was_blocked, additional_features);
+  }
+
+  // Creates a new tab with the already-created WebContents 'new_contents'.
+  // The window for the added contents should be reparented correctly when this
+  // method returns.  If |disposition| is NEW_POPUP, |initial_rect| should hold
+  // the initial position. If |was_blocked| is non-NULL, then |*was_blocked|
+  // will be set to true if the popup gets blocked, and left unchanged
+  // otherwise.
+  virtual void AddNewContents(WebContents* source,
+                              std::unique_ptr<WebContents> new_contents,
+                              WindowOpenDisposition disposition,
+                              const gfx::Rect& initial_rect,
+                              bool user_gesture,
+                              bool* was_blocked,
+                              std::vector<base::string16> additional_features) {
+      AddNewContents(source,std::move(new_contents),disposition,initial_rect,user_gesture,was_blocked);
+  }
 
   // Selects the specified contents, bringing its container to the front.
   virtual void ActivateContents(WebContents* contents) {}

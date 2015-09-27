@@ -2858,6 +2858,10 @@ RenderFrameHostDelegate* WebContentsImpl::CreateNewWindow(
   scoped_refptr<SiteInstance> site_instance =
       params.opener_suppressed && !is_guest ? nullptr : source_site_instance;
 
+  std::vector<base::string16> additional_features;
+  for (auto webStr : params.features->additionalFeatures)
+    additional_features.push_back(base::UTF8ToUTF16(base::StringPiece(webStr)));
+
   // Create the new web contents. This will automatically create the new
   // WebContentsView. In the future, we may want to create the view separately.
   CreateParams create_params(GetBrowserContext(), site_instance.get());
@@ -2917,6 +2921,11 @@ RenderFrameHostDelegate* WebContentsImpl::CreateNewWindow(
     if (!is_guest) {
       WebContentsView* new_view = new_contents_impl->view_.get();
 
+      // set the additional features required by the LuneOS app
+      // (ideally this information should be propagated using the IPC messaging)
+      new_view->setWindowAdditionalFeatures(additional_features);
+      new_view->setInitialTargetURL(params.target_url);
+
       // TODO(brettw): It seems bogus that we have to call this function on the
       // newly created object and give it one of its own member variables.
       RenderWidgetHostView* widget_view = new_view->CreateViewForWidget(
@@ -2970,7 +2979,7 @@ RenderFrameHostDelegate* WebContentsImpl::CreateNewWindow(
       gfx::Rect initial_rect;  // Report an empty initial rect.
       delegate_->AddNewContents(this, std::move(new_contents),
                                 params.disposition, initial_rect,
-                                has_user_gesture, &was_blocked);
+                                has_user_gesture, &was_blocked, additional_features);
       // The delegate may delete |new_contents_impl| during AddNewContents().
       if (!weak_new_contents)
         return nullptr;
@@ -3084,8 +3093,9 @@ void WebContentsImpl::ShowCreatedWindow(int process_id,
 
     base::WeakPtr<WebContentsImpl> weak_created =
         created->weak_factory_.GetWeakPtr();
+    std::vector<base::string16> additional_features = created->view_.get()->getWindowAdditionalFeatures();
     delegate->AddNewContents(this, std::move(owned_created), disposition,
-                             initial_rect, user_gesture, nullptr);
+                             initial_rect, user_gesture, nullptr, additional_features);
     // The delegate may delete |created| during AddNewContents().
     if (!weak_created)
       return;

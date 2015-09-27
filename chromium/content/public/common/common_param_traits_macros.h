@@ -273,6 +273,7 @@ IPC_STRUCT_TRAITS_BEGIN(blink::mojom::WindowFeatures)
   IPC_STRUCT_TRAITS_MEMBER(status_bar_visible)
   IPC_STRUCT_TRAITS_MEMBER(tool_bar_visible)
   IPC_STRUCT_TRAITS_MEMBER(scrollbars_visible)
+  IPC_STRUCT_TRAITS_MEMBER(additionalFeatures)
 IPC_STRUCT_TRAITS_END()
 
 IPC_ENUM_TRAITS_MAX_VALUE(ax::mojom::Event, ax::mojom::Event::kMaxValue)
