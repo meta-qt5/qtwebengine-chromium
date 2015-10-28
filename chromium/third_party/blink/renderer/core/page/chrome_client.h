@@ -409,7 +409,7 @@ class CORE_EXPORT ChromeClient : public GarbageCollected<ChromeClient> {
   }
   virtual void RequestPointerUnlock(LocalFrame*) {}
 
-  virtual IntSize MinimumWindowSize() const { return IntSize(100, 100); }
+  virtual IntSize MinimumWindowSize() const { return IntSize(100, 5); }
 
   virtual bool IsChromeClientImpl() const { return false; }
 
