@@ -45,7 +45,7 @@
     // FIXME: Enable automatically if passwordEchoDurationInSeconds is set to a positive value.
     {
       name: "passwordEchoEnabled",
-      initial: false,
+      initial: true,
     },
 
     // Configure how long the last char should say visible in seconds.
