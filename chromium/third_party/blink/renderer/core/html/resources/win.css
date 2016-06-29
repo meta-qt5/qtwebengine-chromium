@@ -103,7 +103,7 @@ select:-internal-list-box {
 }
 
 textarea {
-    font-family: monospace;
+    font-family: Prelude;
     /* Same as native_theme_base. */
     border-color: #a9a9a9;
 }
