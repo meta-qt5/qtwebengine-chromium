@@ -310,10 +310,10 @@ def WriteGNNinja(path, platform, host, options, linux_sysroot):
     ld = os.environ.get('LD', 'g++')
     ar = os.environ.get('AR', 'ar -X64')
   else:
-    cc = os.environ.get('CC', 'cc')
-    cxx = os.environ.get('CXX', 'c++')
+    cc = os.environ.get('CC_host', 'gcc')
+    cxx = os.environ.get('CXX_host', 'g++')
     ld = cxx
-    ar = os.environ.get('AR', 'ar')
+    ar = os.environ.get('AR_host', 'ar')
 
   # QTBUG-64759
   # cflags = os.environ.get('CFLAGS', '').split()
