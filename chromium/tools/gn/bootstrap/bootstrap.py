@@ -298,14 +298,14 @@ def write_gn_ninja(path, root_gen_dir, options):
     ld = os.environ.get('LD', 'link.exe')
     ar = os.environ.get('AR', 'lib.exe')
   else:
-    cc = os.environ.get('CC', 'cc')
-    cxx = os.environ.get('CXX', 'c++')
+    cc = os.environ.get('CC_host', 'gcc')
+    cxx = os.environ.get('CXX_host', 'g++')
     ld = cxx
-    ar = os.environ.get('AR', 'ar')
+    ar = os.environ.get('AR_host', 'ar')
 
-  cflags = os.environ.get('CFLAGS', '').split()
-  cflags_cc = os.environ.get('CXXFLAGS', '').split()
-  ldflags = os.environ.get('LDFLAGS', '').split()
+  cflags = os.environ.get('CFLAGS_host', '').split()
+  cflags_cc = os.environ.get('CXXFLAGS_host', '').split()
+  ldflags = os.environ.get('LDFLAGS_host', '').split()
   include_dirs = [root_gen_dir, SRC_ROOT]
   libs = []
 
