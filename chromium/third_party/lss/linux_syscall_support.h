@@ -794,6 +794,14 @@ struct kernel_statfs {
 #endif
 
 
+#undef stat64
+#undef fstat64
+
+#ifndef __NR_fstatat
+#define __NR_fstatat __NR_fstatat64
+#endif
+
+
 #if defined(__x86_64__)
 #ifndef ARCH_SET_GS
 #define ARCH_SET_GS             0x1001
@@ -1211,6 +1219,14 @@ struct kernel_statfs {
 #ifndef __NR_fallocate
 #define __NR_fallocate          285
 #endif
+
+#ifndef __NR_pread
+#define __NR_pread __NR_pread64
+#endif
+#ifndef __NR_pwrite
+#define __NR_pwrite __NR_pwrite64
+#endif
+
 /* End of x86-64 definitions                                                 */
 #elif defined(__mips__)
 #if _MIPS_SIM == _MIPS_SIM_ABI32
