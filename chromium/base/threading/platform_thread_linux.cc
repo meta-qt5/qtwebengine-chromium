@@ -186,7 +186,8 @@ void TerminateOnThread() {}
 
 size_t GetDefaultThreadStackSize(const pthread_attr_t& attributes) {
 #if !defined(THREAD_SANITIZER)
-  return 0;
+  // use 8mb like glibc to avoid running out of space
+  return (1 << 23);
 #else
   // ThreadSanitizer bloats the stack heavily. Evidence has been that the
   // default stack size isn't enough for some browser tests.
