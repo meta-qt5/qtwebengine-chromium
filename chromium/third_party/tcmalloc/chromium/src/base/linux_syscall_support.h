@@ -151,6 +151,7 @@ extern "C" {
 #include <stddef.h>
 #include <stdint.h>
 #include <string.h>
+#include <fcntl.h>
 #include <sys/ptrace.h>
 #include <sys/resource.h>
 #include <sys/time.h>
