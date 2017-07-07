@@ -110,14 +110,14 @@ size_t ProcessMetrics::GetMallocUsage() {
   malloc_statistics_t stats = {0};
   malloc_zone_statistics(nullptr, &stats);
   return stats.size_in_use;
-#elif defined(OS_LINUX) || defined(OS_ANDROID)
+#elif defined(__GLIBC__) || defined(OS_ANDROID)
   struct mallinfo minfo = mallinfo();
 #if BUILDFLAG(USE_TCMALLOC)
   return minfo.uordblks;
 #else
   return minfo.hblkhd + minfo.arena;
 #endif
-#elif defined(OS_FUCHSIA)
+#else
   // TODO(fuchsia): Not currently exposed. https://crbug.com/735087.
   return 0;
 #endif
