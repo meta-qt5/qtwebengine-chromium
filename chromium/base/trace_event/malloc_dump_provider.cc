@@ -77,6 +77,7 @@ MallocDumpProvider::~MallocDumpProvider() = default;
 // the current process.
 bool MallocDumpProvider::OnMemoryDump(const MemoryDumpArgs& args,
                                       ProcessMemoryDump* pmd) {
+#if defined(__GLIBC__)
   {
     base::AutoLock auto_lock(emit_metrics_on_memory_dump_lock_);
     if (!emit_metrics_on_memory_dump_)
@@ -175,6 +176,7 @@ bool MallocDumpProvider::OnMemoryDump(const MemoryDumpArgs& args,
                           MemoryAllocatorDump::kUnitsBytes,
                           resident_size - allocated_objects_size);
   }
+#endif // __GLIBC__
   return true;
 }
 
