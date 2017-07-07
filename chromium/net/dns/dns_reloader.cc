@@ -9,6 +9,10 @@
 
 #include <resolv.h>
 
+#if defined(OS_LINUX) && !defined(__GLIBC__)
+#include "net/dns/resolv_compat.h"
+#endif
+
 #include "base/lazy_instance.h"
 #include "base/logging.h"
 #include "base/macros.h"
