@@ -197,6 +197,7 @@ MallocDumpProvider::~MallocDumpProvider() = default;
 // the current process.
 bool MallocDumpProvider::OnMemoryDump(const MemoryDumpArgs& args,
                                       ProcessMemoryDump* pmd) {
+#if defined(__GLIBC__)
   {
     base::AutoLock auto_lock(emit_metrics_on_memory_dump_lock_);
     if (!emit_metrics_on_memory_dump_)
@@ -322,7 +323,7 @@ bool MallocDumpProvider::OnMemoryDump(const MemoryDumpArgs& args,
     pmd->DumpHeapUsage(metrics_by_context, overhead, "malloc");
   }
   tid_dumping_heap_ = kInvalidThreadId;
-
+#endif // __GLIBC__
   return true;
 }
 
