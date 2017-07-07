@@ -233,7 +233,7 @@ extern "C" void* mremap(void* old_addr, size_t old_size, size_t new_size,
 }
 
 // Don't hook sbrk() in Android, since it doesn't expose __sbrk.
-#if !defined(__ANDROID__)
+#if !defined(__ANDROID__) && defined(__GLIBC__)
 // libc's version:
 extern "C" void* __sbrk(ptrdiff_t increment);
 
