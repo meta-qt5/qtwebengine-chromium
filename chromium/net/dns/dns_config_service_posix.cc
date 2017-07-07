@@ -27,6 +27,10 @@
 #include "net/dns/notify_watcher_mac.h"
 #include "net/dns/serial_worker.h"
 
+#if defined(OS_LINUX) && !defined(__GLIBC__)
+#include "net/dns/resolv_compat.h"
+#endif
+
 #if defined(OS_MACOSX) && !defined(OS_IOS)
 #include "net/dns/dns_config_watcher_mac.h"
 #endif
