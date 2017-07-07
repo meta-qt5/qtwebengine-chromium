@@ -25,7 +25,7 @@ namespace content {
 // though, this provides only a partial and misleading value.
 // Unfortunately some telemetry benchmark rely on it and these need to
 // be refactored before getting rid of this. See crbug.com/581365 .
-#if defined(OS_LINUX) || defined(OS_ANDROID)
+#if defined(__GLIBC__) || defined(OS_ANDROID)
 size_t GetMemoryUsageKB() {
   struct mallinfo minfo = mallinfo();
   uint64_t mem_usage =

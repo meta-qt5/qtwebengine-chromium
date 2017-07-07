@@ -103,6 +103,7 @@ MallocDumpProvider::~MallocDumpProvider() {}
 // the current process.
 bool MallocDumpProvider::OnMemoryDump(const MemoryDumpArgs& args,
                                       ProcessMemoryDump* pmd) {
+#if defined(__GLIBC__)
   size_t total_virtual_size = 0;
   size_t resident_size = 0;
   size_t allocated_objects_size = 0;
@@ -195,7 +196,7 @@ bool MallocDumpProvider::OnMemoryDump(const MemoryDumpArgs& args,
     pmd->DumpHeapUsage(metrics_by_context, overhead, "malloc");
   }
   tid_dumping_heap_ = kInvalidThreadId;
-
+#endif // __GLIBC__
   return true;
 }
 
