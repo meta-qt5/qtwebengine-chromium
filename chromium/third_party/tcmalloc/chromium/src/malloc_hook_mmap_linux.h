@@ -60,7 +60,7 @@
 
 static inline void* do_mmap64(void *start, size_t length,
                               int prot, int flags,
-                              int fd, __off64_t offset) __THROW {
+                              int fd, off64_t offset) __THROW {
   // The original gperftools uses sys_mmap() here.  But, it is not allowed by
   // Chromium's sandbox.
   return (void*)syscall(SYS_mmap, start, length, prot, flags, fd, offset);
@@ -73,7 +73,7 @@ static inline void* do_mmap64(void *start, size_t length,
 
 static inline void* do_mmap64(void *start, size_t length,
                               int prot, int flags,
-                              int fd, __off64_t offset) __THROW {
+                              int fd, off64_t offset) __THROW {
   void *result;
 
   // Try mmap2() unless it's not supported
@@ -144,7 +144,7 @@ static inline void* do_mmap64(void *start, size_t length,
 
 extern "C" {
   void* mmap64(void *start, size_t length, int prot, int flags,
-               int fd, __off64_t offset  ) __THROW
+               int fd, off64_t offset  ) __THROW
     ATTRIBUTE_SECTION(malloc_hook);
   void* mmap(void *start, size_t length,int prot, int flags,
              int fd, off_t offset) __THROW
@@ -159,7 +159,7 @@ extern "C" {
 }
 
 extern "C" void* mmap64(void *start, size_t length, int prot, int flags,
-                        int fd, __off64_t offset) __THROW {
+                        int fd, off64_t offset) __THROW {
   MallocHook::InvokePreMmapHook(start, length, prot, flags, fd, offset);
   void *result;
   if (!MallocHook::InvokeMmapReplacement(
@@ -170,7 +170,7 @@ extern "C" void* mmap64(void *start, size_t length, int prot, int flags,
   return result;
 }
 
-# if !defined(__USE_FILE_OFFSET64) || !defined(__REDIRECT_NTH)
+# if defined(__GLIBC__) && (!defined(__USE_FILE_OFFSET64) || !defined(__REDIRECT_NTH))
 
 extern "C" void* mmap(void *start, size_t length, int prot, int flags,
                       int fd, off_t offset) __THROW {
