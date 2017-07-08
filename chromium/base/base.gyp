@@ -126,6 +126,7 @@
               '-lrt',
               # For 'native_library_linux.cc'
               '-ldl',
+              '-lexecinfo',
             ],
           },
           'conditions': [
