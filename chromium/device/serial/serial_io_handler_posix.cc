@@ -6,6 +6,7 @@
 
 #include <sys/ioctl.h>
 #include <termios.h>
+#include <asm-generic/ioctls.h>
 
 #include "base/files/file_util.h"
 #include "base/posix/eintr_wrapper.h"
