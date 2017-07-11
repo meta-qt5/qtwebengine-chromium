@@ -3614,6 +3614,9 @@ void MarkCompactCollector::EvacuateNewSpaceAndCandidates() {
 #endif
 }
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic warning "-Wattributes"
+
 template <PointerDirection direction>
 class PointerUpdateJobTraits {
  public:
@@ -3700,6 +3703,8 @@ class PointerUpdateJobTraits {
     return REMOVE_SLOT;
   }
 };
+
+#pragma GCC diagnostic pop
 
 int NumberOfPointerUpdateTasks(int pages) {
   if (!FLAG_parallel_pointer_update) return 1;
