@@ -33,6 +33,7 @@
 #ifndef COMMON_LINUX_ELF_CORE_DUMP_H_
 #define COMMON_LINUX_ELF_CORE_DUMP_H_
 
+#include <sys/reg.h>
 #include <elf.h>
 #include <limits.h>
 #include <link.h>
