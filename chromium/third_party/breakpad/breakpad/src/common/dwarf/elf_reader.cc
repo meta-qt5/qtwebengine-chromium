@@ -30,6 +30,8 @@
 #define _GNU_SOURCE  // needed for pread()
 #endif
 
+#include <config.h>
+#include <sys/reg.h>
 #include <fcntl.h>
 #include <limits.h>
 #include <string.h>
