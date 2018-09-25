@@ -49,7 +49,7 @@ uintptr_t UContextReader::GetInstructionPointer(const ucontext_t* uc) {
 }
 
 void UContextReader::FillCPUContext(RawContextCPU *out, const ucontext_t *uc,
-                                    const struct _libc_fpstate* fp) {
+                                    const struct _fpstate* fp) {
   const greg_t* regs = uc->uc_mcontext.gregs;
 
   out->context_flags = MD_CONTEXT_X86_FULL |
@@ -97,7 +97,7 @@ uintptr_t UContextReader::GetInstructionPointer(const ucontext_t* uc) {
 }
 
 void UContextReader::FillCPUContext(RawContextCPU *out, const ucontext_t *uc,
-                                    const struct _libc_fpstate* fpregs) {
+                                    const struct _fpstate* fpregs) {
   const greg_t* regs = uc->uc_mcontext.gregs;
 
   out->context_flags = MD_CONTEXT_AMD64_FULL;
