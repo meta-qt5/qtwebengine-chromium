@@ -50,7 +50,7 @@ struct UContextReader {
   //   info: the collection of register structures.
 #if defined(__i386__) || defined(__x86_64)
   static void FillCPUContext(RawContextCPU *out, const ucontext_t *uc,
-                             const struct _libc_fpstate* fp);
+                             const struct _fpstate* fp);
 #elif defined(__aarch64__)
   static void FillCPUContext(RawContextCPU *out, const ucontext_t *uc,
                              const struct fpsimd_context* fpregs);
