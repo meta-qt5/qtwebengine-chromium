@@ -679,7 +679,7 @@ SI F from_half(U16 h) {
 }
 
 SI U16 to_half(F f) {
-#if defined(__ARM_FP16_FORMAT_IEEE)
+#if defined(__ARM_FP16_FORMAT_IEEE) && defined(__ARM_NEON__) && (__ARM_FP & 2)
     __fp16 fp16 = __fp16(f);
     U16 u16;
     memcpy(&u16, &fp16, sizeof(U16));
