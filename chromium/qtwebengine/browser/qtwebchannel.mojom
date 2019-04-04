@@ -14,5 +14,8 @@ interface WebChannelTransportRender {
 
 interface WebChannelTransportHost {
   DispatchWebChannelMessage(array<uint8> binaryJson);
+  // Provide a sync call for LuneOS
+  [Sync]
+  DispatchWebChannelMessageSync(array<uint8> binaryJson) => (array<uint8> replyBinaryJson);
 };
 
