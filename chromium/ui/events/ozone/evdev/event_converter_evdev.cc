@@ -176,8 +176,8 @@ void EventConverterEvdev::SetPalmSuppressionCallback(
 base::TimeTicks EventConverterEvdev::TimeTicksFromInputEvent(
     const input_event& event) {
   base::TimeTicks timestamp =
-      ui::EventTimeStampFromSeconds(event.time.tv_sec) +
-      base::TimeDelta::FromMicroseconds(event.time.tv_usec);
+      ui::EventTimeStampFromSeconds(event.input_event_sec) +
+      base::TimeDelta::FromMicroseconds(event.input_event_usec);
   ValidateEventTimeClock(&timestamp);
   return timestamp;
 }
