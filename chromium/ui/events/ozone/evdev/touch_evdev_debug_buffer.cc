@@ -63,8 +63,7 @@ void TouchEventLogEvdev::DumpLog(const char* filename) {
       continue;
     std::string event_string = base::StringPrintf(
         "E: %ld.%06ld %04x %04x %d %d\n", te->ev.input_event_sec,
-        te->ev.input_event_usec, te->ev.type, te->ev.code, te->ev.value,
-        te->slot);
+        te->ev.input_event_usec, te->ev.type, te->ev.code, te->ev.value, te->slot);
     report_content += event_string;
   }
   file.Write(0, report_content.c_str(), report_content.length());
