@@ -14,6 +14,11 @@
 
 #include "ui/events/ozone/evdev/events_ozone_evdev_export.h"
 
+#ifndef input_event_sec
+#define input_event_sec time.tv_sec
+#define input_event_usec time.tv_usec
+#endif
+
 namespace ui {
 
 class EventDeviceInfo;
