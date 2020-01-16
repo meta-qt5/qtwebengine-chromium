@@ -18,6 +18,7 @@
 #define INCLUDE_PERFETTO_BASE_TASK_RUNNER_H_
 
 #include <functional>
+#include <cstdint>
 
 #include "perfetto/base/export.h"
 
