@@ -7,9 +7,13 @@ import("//build/config/host_byteorder.gni")
 import("//build/config/linux/pkg_config.gni")
 import("//build/shim_headers.gni")
 import("//third_party/icu/config.gni")
+import("//v8/gni/snapshot_toolchain.gni")
 
 declare_args() {
   use_system_icu = false
+
+  # Use only target icu library, when system using is enabled
+  use_system_icu_target_only = false
 }
 
 if (is_android) {
@@ -20,6 +24,12 @@ if (is_mac) {
   import("//build/config/sanitizers/sanitizers.gni")
 }
 
+if (use_system_icu) {
+  # Use system library only for target, otherwise use bundled
+  if ((current_toolchain != host_toolchain) && (current_toolchain != v8_snapshot_toolchain)) {
+    use_system_icu_target_only = true
+  }
+}
 # Meta target that includes both icuuc and icui18n. Most targets want both.
 # You can depend on the individually if you need to.
 group("icu") {
@@ -1207,7 +1217,7 @@ config("system_icu_config") {
   }
 }
 
-if (use_system_icu) {
+if (use_system_icu_target_only) {
   pkg_config("system_icui18n") {
     packages = [ "icu-i18n" ]
   }
@@ -1420,7 +1430,7 @@ shim_headers("icuuc_shim") {
 }
 
 config("icu_config") {
-  if (use_system_icu) {
+  if (use_system_icu_target_only) {
     configs = [ ":system_icu_config"]
   } else {
     configs = [ ":bundled_icu_config"]
@@ -1428,7 +1438,7 @@ config("icu_config") {
 }
 
 group("icuuc") {
-  if (use_system_icu) {
+  if (use_system_icu_target_only) {
     deps = [ ":icuuc_shim" ]
     public_configs = [
       ":system_icu_config",
@@ -1440,7 +1450,7 @@ group("icuuc") {
 }
 
 group("icui18n") {
-  if (use_system_icu) {
+  if (use_system_icu_target_only) {
     deps = [ ":icui18n_shim" ]
     public_configs = [
       ":system_icu_config",
