@@ -148,7 +148,14 @@ ResultExpr EvaluateSyscallImpl(int fs_denied_errno,
     return Allow();
 #endif
 
-  if (sysno == __NR_clock_gettime || sysno == __NR_clock_nanosleep) {
+  if (sysno == __NR_clock_gettime || sysno == __NR_clock_nanosleep
+#if defined(__NR_clock_gettime64)
+                                  || sysno == __NR_clock_gettime64
+#endif
+#if defined(__NR_clock_nanosleep_time64)
+                                  || sysno == __NR_clock_nanosleep_time64
+#endif
+  ) {
     return RestrictClockID();
   }
 

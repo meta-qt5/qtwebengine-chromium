@@ -39,6 +39,12 @@ bool SyscallSets::IsAllowedGettime(int sysno) {
                                 // filtered by RestrictClokID().
     case __NR_clock_gettime:    // Parameters filtered by RestrictClockID().
     case __NR_clock_nanosleep:  // Parameters filtered by RestrictClockID().
+#if defined(__NR_clock_gettime64)
+    case __NR_clock_gettime64:  // Parameters filtered by RestrictClockID().
+#endif
+#if defined(__NR_clock_nanosleep_time64)
+    case __NR_clock_nanosleep_time64:  // Parameters filtered by RestrictClockID().
+#endif
     case __NR_clock_settime:    // Privileged.
 #if defined(__i386__) || \
     (defined(ARCH_CPU_MIPS_FAMILY) && defined(ARCH_CPU_32_BITS))

@@ -60,6 +60,12 @@ class RestrictClockIdPolicy : public bpf_dsl::Policy {
       case __NR_clock_gettime:
       case __NR_clock_getres:
       case __NR_clock_nanosleep:
+#if defined(__NR_clock_nanosleep_time64)
+      case __NR_clock_nanosleep_time64:
+#endif
+#if defined(__NR_clock_gettime64)
+      case __NR_clock_gettime64:
+#endif
         return RestrictClockID();
       default:
         return Allow();
