@@ -8,6 +8,7 @@
 #include <sys/socket.h>
 #include <sys/un.h>
 #include <unistd.h>
+#include <string.h>
 
 #include "base/files/file_util.h"
 #include "base/files/scoped_file.h"
