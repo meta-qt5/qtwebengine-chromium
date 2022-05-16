@@ -7,6 +7,7 @@
 
 
 #include "include/utils/SkParse.h"
+#include <vector>
 
 #include <algorithm> // std::lower_bound
 #include <iterator>
