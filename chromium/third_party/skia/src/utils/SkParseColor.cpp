@@ -7,6 +7,7 @@
 
 
 #include "include/utils/SkParse.h"
+#include <vector>
 
 static constexpr const char* gColorNames[] = {
     "aliceblue",
