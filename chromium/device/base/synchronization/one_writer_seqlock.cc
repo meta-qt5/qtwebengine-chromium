@@ -3,6 +3,7 @@
 // found in the LICENSE file.
 
 #include "device/base/synchronization/one_writer_seqlock.h"
+#include <cstdint>
 
 namespace device {
 
